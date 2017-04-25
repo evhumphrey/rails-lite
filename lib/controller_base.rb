@@ -35,7 +35,7 @@ class ControllerBase
   def render_content(content, content_type)
     raise "Double Render Error" if already_built_response?
 
-    # set content_type attribute in header
+    # set content_type attribute in header equiv to set_header
     @res['Content-type'] = content_type
 
     # sets body
