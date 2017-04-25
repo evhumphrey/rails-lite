@@ -46,6 +46,18 @@ class ControllerBase
   # use ERB and binding to evaluate templates
   # pass the rendered html to render_content
   def render(template_name)
+    # "views/#{controller_name}/#{template_name}.html.erb"
+
+    # format view path
+    controller_name = self.class.to_s.underscore
+    view_path = "views/#{controller_name}/#{template_name}.html.erb"
+
+    # read in contents of view file and interpret embedded ruby
+    view_content = File.read(view_path)
+    template_content = ERB.new(view_content).result(binding) # binding gives erb access to ivars
+
+    # html/text downloads output???
+    render_content(template_content, "text/html")
   end
 
   # method exposing a `Session` object
