@@ -1,6 +1,7 @@
 require 'active_support'
 require 'active_support/core_ext'
 require 'erb'
+require 'byebug'
 require_relative './session'
 
 class ControllerBase
@@ -19,6 +20,13 @@ class ControllerBase
 
   # Set the response status code and header
   def redirect_to(url)
+    raise "Double Render Error" if already_built_response?
+
+    # equiv to @res.redirect
+    @res.status = 302
+    @res.location = url
+
+    @already_built_response = true
   end
 
   # Populate the response with content.
@@ -27,7 +35,9 @@ class ControllerBase
   def render_content(content, content_type)
     raise "Double Render Error" if already_built_response?
 
+    # set content_type attribute in header
     @res['Content-type'] = content_type
+
     # sets body
     @res.write(content)
     @already_built_response = true
