@@ -2,10 +2,11 @@ require 'rack'
 
 app = Proc.new do |env|
   req = Rack::Request.new(env)
-  res = Rack::Response.new
+  path = env["REQUEST_PATH"]
 
-  res['Content-type'] = 'text/html'
-  res.write('Hello World')
+  res = Rack::Response.new
+  res['Content-type'] = 'text/html; charset=utf-8'
+  res.write(path)
   res.finish
 end
 
