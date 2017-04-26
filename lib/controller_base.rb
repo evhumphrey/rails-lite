@@ -27,6 +27,8 @@ class ControllerBase
     @res.location = url
 
     @already_built_response = true
+
+    session.store_session(@res)
   end
 
   # Populate the response with content.
@@ -41,6 +43,10 @@ class ControllerBase
     # sets body
     @res.write(content)
     @already_built_response = true
+
+    # sets cookie in response (as cookie for client to save)
+    # just keep on adding stuff to the response (until res.finish is called in server)
+    session.store_session(@res)
   end
 
   # use ERB and binding to evaluate templates
