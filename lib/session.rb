@@ -27,7 +27,8 @@ class Session
       "_rails_lite_app",
         {
           path: "/",
-          value: @cookie.to_json
+          value: @cookie.to_json,
+          expires: (Time.now + 2)
         })
   end
 end
