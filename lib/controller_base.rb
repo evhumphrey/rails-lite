@@ -62,6 +62,8 @@ class ControllerBase
 
   # method exposing a `Session` object
   def session
+    # lazy assign so session persists for entire controller life
+    @session ||= Session.new(@req)
   end
 
   # use this with the router to call action_name (:index, :show, :create...)

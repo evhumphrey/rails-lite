@@ -29,6 +29,6 @@ class Session
           path: "/",
           value: @cookie.to_json
         })
-
+        debugger
   end
 end
